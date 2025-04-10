@@ -177,7 +177,18 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.BT, function (sprite, otherSprite) {
-	
+    story.startCutscene(function () {
+        story.setSoundEnabled(true)
+        story.printCharacterText("There you are", "Battle Thing")
+        story.printCharacterText("Here are your presents", "Battle Thing")
+        tiles.replaceAllTiles(assets.tile`myTile8`, assets.tile`myTile19`)
+        story.printCharacterText("Claze, Lameleon Plushie, Mini Bicycle, Seeing orb", "Items")
+        story.printCharacterText("Wow, Thank's Dad", "Cute Thing")
+        story.printCharacterText("And cake!", "Cute Thing")
+        tiles.replaceAllTiles(assets.tile`myTile9`, assets.tile`myTile20`)
+        story.printCharacterText("*Burp!*", "Cute Thing")
+        story.cancelCurrentCutscene()
+    })
 })
 let CT: Sprite = null
 tiles.setCurrentTilemap(tilemap`home`)
@@ -204,9 +215,9 @@ let BT = sprites.create(img`
 tiles.placeOnRandomTile(BT, sprites.castle.tilePath8)
 tiles.placeOnRandomTile(CT, assets.tile`myTile14`)
 scene.cameraFollowSprite(CT)
-story.setSoundEnabled(true)
 story.startCutscene(function () {
-    story.printCharacterText("Yawn", "Cute Thing")
+    story.setSoundEnabled(true)
+    story.printCharacterText("*Yawn*", "Cute Thing")
     story.printCharacterText("Happy Birthday, Cute Thing. You better come outside", "Battle Thing")
     story.printCharacterText("Ok, Dad", "Cute Thing")
     story.cancelCurrentCutscene()
