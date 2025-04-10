@@ -92,6 +92,12 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile18`, function (sprite, location) {
     tiles.replaceAllTiles(assets.tile`myTile18`, assets.tile`myTile17`)
 })
+function gardencar () {
+    tiles.loadMap(tiles.createMap(tilemap`level4`))
+    tiles.coverAllTiles(tiles.util.arrow4, sprites.vehicle.roadHorizontal)
+    tiles.placeOnRandomTile(CT, tiles.util.arrow4)
+    tiles.placeOnRandomTile(BT, tiles.util.arrow4)
+}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.runFrames(
     CT,
@@ -186,15 +192,19 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.BT, function (sprite, otherSprit
         story.printCharacterText("Wow, Thank's Dad", "Cute Thing")
         story.printCharacterText("And cake!", "Cute Thing")
         tiles.replaceAllTiles(assets.tile`myTile9`, assets.tile`myTile20`)
-        story.printCharacterText("*Burp!*", "Cute Thing")
+        story.printCharacterText("*Burp!* You can really taste the candle", "Cute Thing")
+        story.cancelAllCutscenes()
         story.cancelCurrentCutscene()
+        story.clearAllText()
+        gardencar()
     })
 })
+let BT: Sprite = null
 let CT: Sprite = null
 tiles.setCurrentTilemap(tilemap`home`)
 info.setLife(3)
 CT = sprites.create(assets.image`CT`, SpriteKind.Player)
-let BT = sprites.create(img`
+BT = sprites.create(img`
     . . . . 1 . . . . 1 . . . . . . 
     . . . 1 1 1 1 1 1 1 1 . . . . . 
     . . 1 1 1 1 1 1 1 3 1 1 . . . . 
