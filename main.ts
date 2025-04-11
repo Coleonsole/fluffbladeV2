@@ -97,6 +97,10 @@ function gardencar () {
     tiles.coverAllTiles(tiles.util.arrow4, sprites.vehicle.roadHorizontal)
     tiles.placeOnRandomTile(CT, tiles.util.arrow4)
     tiles.placeOnRandomTile(BT, tiles.util.arrow4)
+    story.startCutscene(function () {
+        story.printCharacterText("*Hm hm hmmm*", "Battle Thing")
+        story.spriteMoveToLocation(BT, 0, 0, 100)
+    })
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.runFrames(
@@ -190,12 +194,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.BT, function (sprite, otherSprit
         tiles.replaceAllTiles(assets.tile`myTile8`, assets.tile`myTile19`)
         story.printCharacterText("Claze, Lameleon Plushie, Mini Bicycle, Seeing orb", "Items")
         story.printCharacterText("Wow, Thank's Dad", "Cute Thing")
-        story.printCharacterText("And cake!", "Cute Thing")
+        story.printCharacterText("And cake!", "Battle Thing")
         tiles.replaceAllTiles(assets.tile`myTile9`, assets.tile`myTile20`)
         story.printCharacterText("*Burp!* You can really taste the candle", "Cute Thing")
         story.cancelAllCutscenes()
-        story.cancelCurrentCutscene()
-        story.clearAllText()
         gardencar()
     })
 })
