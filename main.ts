@@ -95,12 +95,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile18`, function (sprite, 
 function gardencar () {
     tiles.loadMap(tiles.createMap(tilemap`level4`))
     tiles.coverAllTiles(tiles.util.arrow4, sprites.vehicle.roadHorizontal)
+    tiles.coverAllTiles(tiles.util.arrow1, sprites.vehicle.roadHorizontal)
     tiles.placeOnRandomTile(CT, tiles.util.arrow4)
     tiles.placeOnRandomTile(BT, tiles.util.arrow4)
-    story.startCutscene(function () {
-        story.printCharacterText("*Hm hm hmmm*", "Battle Thing")
-        story.spriteMoveToLocation(BT, 0, 0, 100)
-    })
+    scene.cameraFollowSprite(BT)
+    story.printCharacterText("Nice to spend some time with you", "Battle Thing")
+    story.printCharacterText("Mmmm hmm", "Cute Thing")
+    story.spriteMoveToLocation(BT, 0, 0, 50)
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.runFrames(
@@ -187,19 +188,17 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.BT, function (sprite, otherSprite) {
-    story.startCutscene(function () {
-        story.setSoundEnabled(true)
-        story.printCharacterText("There you are", "Battle Thing")
-        story.printCharacterText("Here are your presents", "Battle Thing")
-        tiles.replaceAllTiles(assets.tile`myTile8`, assets.tile`myTile19`)
-        story.printCharacterText("Claze, Lameleon Plushie, Mini Bicycle, Seeing orb", "Items")
-        story.printCharacterText("Wow, Thank's Dad", "Cute Thing")
-        story.printCharacterText("And cake!", "Battle Thing")
-        tiles.replaceAllTiles(assets.tile`myTile9`, assets.tile`myTile20`)
-        story.printCharacterText("*Burp!* You can really taste the candle", "Cute Thing")
-        story.cancelAllCutscenes()
-        gardencar()
-    })
+    story.setSoundEnabled(true)
+    story.printCharacterText("There you are", "Battle Thing")
+    story.printCharacterText("Here are your presents", "Battle Thing")
+    tiles.replaceAllTiles(assets.tile`myTile8`, assets.tile`myTile19`)
+    story.printCharacterText("Claze, Lameleon Plushie, Mini Bicycle, Seeing orb", "Items")
+    story.printCharacterText("Wow, Thank's Dad", "Cute Thing")
+    story.printCharacterText("And cake!", "Battle Thing")
+    tiles.replaceAllTiles(assets.tile`myTile9`, assets.tile`myTile20`)
+    story.printCharacterText("*Burp!* You can really taste the candle", "Cute Thing")
+    story.printCharacterText("How's about we go for a walk")
+    gardencar()
 })
 let BT: Sprite = null
 let CT: Sprite = null
@@ -227,11 +226,12 @@ BT = sprites.create(img`
 tiles.placeOnRandomTile(BT, sprites.castle.tilePath8)
 tiles.placeOnRandomTile(CT, assets.tile`myTile14`)
 scene.cameraFollowSprite(CT)
-story.startCutscene(function () {
-    story.setSoundEnabled(true)
-    story.printCharacterText("*Yawn*", "Cute Thing")
-    story.printCharacterText("Happy Birthday, Cute Thing. You better come outside", "Battle Thing")
-    story.printCharacterText("Ok, Dad", "Cute Thing")
-    story.cancelCurrentCutscene()
-})
+story.setSoundEnabled(true)
+story.printCharacterText("*Yawn*", "Cute Thing")
+story.printCharacterText("Happy Birthday, Cute Thing. You better come outside", "Battle Thing")
+story.printCharacterText("Ok, Dad", "Cute Thing")
 controller.moveSprite(CT)
+game.onUpdateInterval(5000, function () {
+    tiles.replaceAllTiles(assets.tile`myTile16`, assets.tile`myTile15`)
+    tiles.replaceAllTiles(assets.tile`myTile17`, assets.tile`myTile18`)
+})
