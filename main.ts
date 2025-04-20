@@ -3,7 +3,7 @@ namespace SpriteKind {
     export const BT = SpriteKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    characterAnimations.runFrames(
+    characterAnimations.loopFrames(
     CT,
     [img`
         . . . . . . . . . . . . . . . . 
@@ -58,7 +58,7 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . 1 . . . . . . . . . . 
         `],
     100,
-    characterAnimations.rule(Predicate.MovingUp, Predicate.FacingUp)
+    characterAnimations.rule(Predicate.MovingUp)
     )
     characterAnimations.loopFrames(
     CT,
@@ -298,6 +298,7 @@ function gardencar () {
     tiles.placeOnRandomTile(CT, tiles.util.arrow4)
     tiles.placeOnRandomTile(BT, tiles.util.arrow4)
     scene.cameraFollowSprite(BT)
+    CT.setStayInScreen(true)
     story.printCharacterText("Nice to spend some time with you", "Battle Thing")
     story.printCharacterText("Mmmm hmm", "Cute Thing")
     story.spriteMoveToLocation(BT, 0, 0, 50)
@@ -453,7 +454,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    characterAnimations.runFrames(
+    characterAnimations.loopFrames(
     CT,
     [img`
         . . . . . . . . . . . . . . . . 
@@ -612,8 +613,118 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.BT, function (sprite, otherSprit
     story.printCharacterText("And cake!", "Battle Thing")
     tiles.replaceAllTiles(assets.tile`myTile9`, assets.tile`myTile20`)
     story.printCharacterText("*Burp!* You can really taste the candle", "Cute Thing")
-    story.printCharacterText("How's about we go for a walk")
+    story.printCharacterText("How's about we go for a walk", "Battle Thing")
     gardencar()
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
+    characterAnimations.loopFrames(
+    CT,
+    [img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . 5 . . . . . 1 1 . . . . . . . 
+        c . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        c . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        c 5 c 1 9 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . 5 c 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        . . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        . . . . . . . 1 1 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . 5 . . . . . 1 1 . . . . . . . 
+        c . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        c . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 9 9 1 1 1 1 1 1 1 1 1 1 1 1 
+        c 5 9 9 9 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . 5 c 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        . . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        . . . . . . . 1 1 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . 5 . . . . . 1 1 . . . . . . . 
+        c . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        c 9 9 9 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 9 9 9 1 1 1 1 1 1 1 1 1 1 1 1 
+        c 9 9 9 9 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . 5 c 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        . . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        . . . . . . . 1 1 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . 5 . . . . . 1 1 . . . . . . . 
+        c 9 9 9 1 f 1 1 1 1 1 1 1 1 . . 
+        c 9 9 9 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 9 9 9 1 1 1 1 1 1 1 1 1 1 1 1 
+        c 9 9 9 9 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . 5 c 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        . . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        . . . . . . . 1 1 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . 5 . . . . . 1 1 . . . . . . . 
+        c . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        c 9 9 9 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 9 9 9 1 1 1 1 1 1 1 1 1 1 1 1 
+        c 9 9 9 9 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . 5 c 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        . . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        . . . . . . . 1 1 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . 5 . . . . . 1 1 . . . . . . . 
+        c . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        c . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 9 9 1 1 1 1 1 1 1 1 1 1 1 1 
+        c 5 9 9 9 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        c 5 c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . 5 c 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        . . c 1 1 f 1 1 1 1 1 1 1 1 1 . 
+        . . . . 1 f 1 1 1 1 1 1 1 1 . . 
+        . . . . . . . 1 1 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `],
+    500,
+    characterAnimations.rule(Predicate.NotMoving)
+    )
 })
 let BT: Sprite = null
 let CT: Sprite = null
